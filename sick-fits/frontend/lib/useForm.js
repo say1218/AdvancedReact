@@ -12,6 +12,8 @@ export default function useForm(initial = {}) {
     }
 
     if (type === 'file') {
+      alert('hellooo');
+      // console.log(e.target.files);
       [value] = e.target.files;
     }
 
