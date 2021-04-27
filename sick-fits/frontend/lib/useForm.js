@@ -1,38 +1,42 @@
 import { useState } from 'react';
 
 export default function useForm(initial = {}) {
-  // create a state object for fields/inputs
+  // create a state object for our inputs
   const [inputs, setInputs] = useState(initial);
 
-  const handleChange = (e) => {
-    const { value, name, type } = e.target;
+  // {
+  //   name: 'wes',
+  //   description: 'nice shoes',
+  //   price: 1000
+  // }
 
+  function handleChange(e) {
+    let { value, name, type } = e.target;
     if (type === 'number') {
       value = parseInt(value);
     }
-
     if (type === 'file') {
-      alert('hellooo');
-      // console.log(e.target.files);
       [value] = e.target.files;
     }
+    setInputs({
+      // copy the existing state
+      ...inputs,
+      [name]: value,
+    });
+  }
 
-    setInputs({ ...inputs, [name]: value });
-  };
-
-  const resetForm = () => {
+  function resetForm() {
     setInputs(initial);
-  };
+  }
 
-  const clearForm = () => {
-    const newObjStructure = Object.entries(inputs).map(([key, value]) => [
-      key,
-      '',
-    ]);
-    const blankState = Object.fromEntries(newObjStructure);
+  function clearForm() {
+    const blankState = Object.fromEntries(
+      Object.entries(inputs).map(([key, value]) => [key, ''])
+    );
     setInputs(blankState);
-  };
+  }
 
+  // return the things we want to surface from this custom hook
   return {
     inputs,
     handleChange,
