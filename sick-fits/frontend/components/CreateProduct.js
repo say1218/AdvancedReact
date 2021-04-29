@@ -58,7 +58,7 @@ export default function CreateProduct() {
 
         // Go to the product page
         Router.push({
-          pathname: `/products/${res.data.createProduct.id}`,
+          pathname: `/product/${res.data.createProduct.id}`,
         });
       }}
     >
